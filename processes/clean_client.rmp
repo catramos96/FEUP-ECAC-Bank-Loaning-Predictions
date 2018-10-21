@@ -13,7 +13,7 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_raw" width="90" x="45" y="136">
-        <parameter key="repository_entry" value="../data/client_raw"/>
+        <parameter key="repository_entry" value="../data_raw/client_raw"/>
       </operator>
       <operator activated="true" class="generate_attributes" compatibility="9.0.003" expanded="true" height="82" name="Correct BirthDate" width="90" x="179" y="136">
         <list key="function_descriptions">
@@ -43,7 +43,7 @@
         <parameter key="include_special_attributes" value="false"/>
       </operator>
       <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="581" y="136">
-        <parameter key="repository_entry" value="../data/client_process"/>
+        <parameter key="repository_entry" value="../data_processed/client_processed"/>
       </operator>
       <connect from_op="Retrieve client_raw" from_port="output" to_op="Correct BirthDate" to_port="example set input"/>
       <connect from_op="Correct BirthDate" from_port="example set output" to_op="Age Calculater" to_port="example set input"/>
