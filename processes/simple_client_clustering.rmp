@@ -33,7 +33,7 @@
         <parameter key="add_cluster_attribute" value="true"/>
         <parameter key="add_as_label" value="false"/>
         <parameter key="remove_unlabeled" value="false"/>
-        <parameter key="k" value="8"/>
+        <parameter key="k" value="6"/>
         <parameter key="max_runs" value="4"/>
         <parameter key="determine_good_start_values" value="true"/>
         <parameter key="measure_types" value="MixedMeasures"/>
@@ -55,15 +55,20 @@
         <parameter key="local_random_seed" value="1992"/>
       </operator>
       <operator activated="true" class="extract_prototypes" compatibility="9.0.003" expanded="true" height="82" name="Extract Cluster Prototypes" width="90" x="514" y="187"/>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_processed (2)" width="90" x="514" y="289">
+        <parameter key="repository_entry" value="../data_processed/client_processed"/>
+      </operator>
       <connect from_op="Retrieve client_processed" from_port="output" to_op="Select Attributes" to_port="example set input"/>
       <connect from_op="Select Attributes" from_port="example set output" to_op="Clustering" to_port="example set"/>
       <connect from_op="Clustering" from_port="cluster model" to_op="Extract Cluster Prototypes" to_port="model"/>
       <connect from_op="Extract Cluster Prototypes" from_port="example set" to_port="result 1"/>
       <connect from_op="Extract Cluster Prototypes" from_port="model" to_port="result 2"/>
+      <connect from_op="Retrieve client_processed (2)" from_port="output" to_port="result 3"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
       <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
     </process>
   </operator>
 </process>
