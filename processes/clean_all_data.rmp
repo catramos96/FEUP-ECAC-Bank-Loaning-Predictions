@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.0.003">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.0.003" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="82" name="Execute clean_account" width="90" x="112" y="34">
+        <parameter key="process_location" value="./data_cleaning/clean_account"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="82" name="Execute clean_card" width="90" x="112" y="136">
+        <parameter key="process_location" value="./data_cleaning/clean_card"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute clean_client" width="90" x="112" y="238">
+        <parameter key="process_location" value="./data_cleaning/clean_client"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute clean_disp" width="90" x="112" y="340">
+        <parameter key="process_location" value="./data_cleaning/clean_disp"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute clean_district" width="90" x="112" y="442">
+        <parameter key="process_location" value="./data_cleaning/clean_district"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="82" name="Execute clean_loan" width="90" x="112" y="544">
+        <parameter key="process_location" value="./data_cleaning/clean_loan"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="82" name="Execute clean_trans" width="90" x="112" y="646">
+        <parameter key="process_location" value="./data_cleaning/clean_trans"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <connect from_op="Execute clean_account" from_port="result 1" to_port="result 1"/>
+      <connect from_op="Execute clean_card" from_port="result 1" to_port="result 2"/>
+      <connect from_op="Execute clean_card" from_port="result 2" to_port="result 3"/>
+      <connect from_op="Execute clean_client" from_port="result 1" to_port="result 4"/>
+      <connect from_op="Execute clean_disp" from_port="result 1" to_port="result 5"/>
+      <connect from_op="Execute clean_district" from_port="result 1" to_port="result 6"/>
+      <connect from_op="Execute clean_loan" from_port="result 1" to_port="result 7"/>
+      <connect from_op="Execute clean_loan" from_port="result 2" to_port="result 8"/>
+      <connect from_op="Execute clean_trans" from_port="result 1" to_port="result 9"/>
+      <connect from_op="Execute clean_trans" from_port="result 2" to_port="result 10"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
+      <portSpacing port="sink_result 7" spacing="0"/>
+      <portSpacing port="sink_result 8" spacing="0"/>
+      <portSpacing port="sink_result 9" spacing="0"/>
+      <portSpacing port="sink_result 10" spacing="0"/>
+      <portSpacing port="sink_result 11" spacing="0"/>
+    </process>
+  </operator>
+</process>
