@@ -25,7 +25,8 @@
         <parameter key="filters_logic_and" value="true"/>
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
-      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Withdrawal Amount" width="90" x="514" y="493">
+      <operator activated="true" class="multiply" compatibility="9.0.003" expanded="true" height="103" name="Multiply" width="90" x="313" y="289"/>
+      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Withdrawal Amount" width="90" x="313" y="493">
         <parameter key="use_default_aggregation" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
@@ -48,12 +49,12 @@
         <parameter key="only_distinct" value="false"/>
         <parameter key="ignore_missings" value="true"/>
       </operator>
-      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename (2)" width="90" x="648" y="493">
+      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename (2)" width="90" x="447" y="493">
         <parameter key="old_name" value="average(amount)"/>
         <parameter key="new_name" value="average_withdrawal_amount"/>
         <list key="rename_additional_attributes"/>
       </operator>
-      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Balance" width="90" x="514" y="289">
+      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Balance" width="90" x="447" y="187">
         <parameter key="use_default_aggregation" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
@@ -76,12 +77,12 @@
         <parameter key="only_distinct" value="false"/>
         <parameter key="ignore_missings" value="true"/>
       </operator>
-      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename (3)" width="90" x="648" y="289">
+      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename (3)" width="90" x="581" y="187">
         <parameter key="old_name" value="average(balance)"/>
         <parameter key="new_name" value="average_balance"/>
         <list key="rename_additional_attributes"/>
       </operator>
-      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Credit Amount" width="90" x="514" y="85">
+      <operator activated="true" class="aggregate" compatibility="9.0.003" expanded="true" height="82" name="Credit Amount" width="90" x="313" y="85">
         <parameter key="use_default_aggregation" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
@@ -104,12 +105,12 @@
         <parameter key="only_distinct" value="false"/>
         <parameter key="ignore_missings" value="true"/>
       </operator>
-      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="648" y="85">
+      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="447" y="85">
         <parameter key="old_name" value="average(amount)"/>
         <parameter key="new_name" value="average_credit_amount"/>
         <list key="rename_additional_attributes"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="782" y="85">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="715" y="85">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="inner"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
@@ -118,7 +119,7 @@
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (2)" width="90" x="916" y="85">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (2)" width="90" x="849" y="85">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="inner"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
@@ -129,8 +130,10 @@
       </operator>
       <connect from_op="Retrieve trans_train_raw" from_port="output" to_op="Filter Examples" to_port="example set input"/>
       <connect from_op="Filter Examples" from_port="example set output" to_op="Credit Amount" to_port="example set input"/>
-      <connect from_op="Filter Examples" from_port="original" to_op="Balance" to_port="example set input"/>
+      <connect from_op="Filter Examples" from_port="original" to_op="Multiply" to_port="input"/>
       <connect from_op="Filter Examples" from_port="unmatched example set" to_op="Withdrawal Amount" to_port="example set input"/>
+      <connect from_op="Multiply" from_port="output 1" to_op="Balance" to_port="example set input"/>
+      <connect from_op="Multiply" from_port="output 2" to_port="result 1"/>
       <connect from_op="Withdrawal Amount" from_port="example set output" to_op="Rename (2)" to_port="example set input"/>
       <connect from_op="Rename (2)" from_port="example set output" to_op="Join (2)" to_port="right"/>
       <connect from_op="Balance" from_port="example set output" to_op="Rename (3)" to_port="example set input"/>
@@ -138,7 +141,6 @@
       <connect from_op="Credit Amount" from_port="example set output" to_op="Rename" to_port="example set input"/>
       <connect from_op="Rename" from_port="example set output" to_op="Join" to_port="left"/>
       <connect from_op="Join" from_port="join" to_op="Join (2)" to_port="left"/>
-      <connect from_op="Join (2)" from_port="join" to_port="result 1"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
