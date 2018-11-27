@@ -13,7 +13,7 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve district_processed" width="90" x="112" y="136">
-        <parameter key="repository_entry" value="../data_processed/district_processed"/>
+        <parameter key="repository_entry" value="../../data_processed/district_processed"/>
       </operator>
       <operator activated="true" class="concurrency:correlation_matrix" compatibility="9.0.003" expanded="true" height="103" name="Correlation Matrix" width="90" x="313" y="136">
         <parameter key="attribute_filter_type" value="all"/>

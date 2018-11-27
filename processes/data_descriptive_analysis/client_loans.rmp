@@ -13,10 +13,10 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve account_raw" width="90" x="179" y="289">
-        <parameter key="repository_entry" value="../data_raw/account_raw"/>
+        <parameter key="repository_entry" value="../../data_raw/account_raw"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve loan_train_raw" width="90" x="179" y="391">
-        <parameter key="repository_entry" value="../data_raw/loan_train_raw"/>
+        <parameter key="repository_entry" value="../../data_raw/loan_train_raw"/>
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="313" y="289">
         <parameter key="remove_double_attributes" value="true"/>
@@ -28,13 +28,13 @@
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_processed" width="90" x="45" y="85">
-        <parameter key="repository_entry" value="../data_processed/client_processed"/>
+        <parameter key="repository_entry" value="../../data_processed/client_processed"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve disp_raw" width="90" x="179" y="187">
-        <parameter key="repository_entry" value="../data_raw/disp_raw"/>
+        <parameter key="repository_entry" value="../../data_raw/disp_raw"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve district_raw" width="90" x="45" y="187">
-        <parameter key="repository_entry" value="../data_raw/district_raw"/>
+        <parameter key="repository_entry" value="../../data_raw/district_raw"/>
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (4)" width="90" x="179" y="85">
         <parameter key="remove_double_attributes" value="true"/>

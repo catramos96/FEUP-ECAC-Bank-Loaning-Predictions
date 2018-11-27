@@ -13,10 +13,10 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve district_raw" width="90" x="45" y="289">
-        <parameter key="repository_entry" value="../data_raw/district_raw"/>
+        <parameter key="repository_entry" value="../../data_raw/district_raw"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_processed" width="90" x="45" y="187">
-        <parameter key="repository_entry" value="../data_processed/client_processed"/>
+        <parameter key="repository_entry" value="../../data_processed/client_processed"/>
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="179" y="238">
         <parameter key="remove_double_attributes" value="true"/>
