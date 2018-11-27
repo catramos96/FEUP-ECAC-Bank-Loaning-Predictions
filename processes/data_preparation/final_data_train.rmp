@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.0.003">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.0.003" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve disp_clean" width="90" x="45" y="85">
+        <parameter key="repository_entry" value="../../data_processed/disp_clean"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_processed" width="90" x="45" y="187">
+        <parameter key="repository_entry" value="../../data_processed/client_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="dispXclient" width="90" x="179" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="client_id" value="client_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve account_processed" width="90" x="179" y="187">
+        <parameter key="repository_entry" value="../../data_processed/account_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Xaccount" width="90" x="313" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve card_train_processed" width="90" x="313" y="187">
+        <parameter key="repository_entry" value="../../data_processed/card_train_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Xcard" width="90" x="447" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="disp_id" value="disp_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve loan_train_processed" width="90" x="447" y="187">
+        <parameter key="repository_entry" value="../../data_processed/loan_train_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Xloan" width="90" x="581" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve trans_train_processed" width="90" x="581" y="187">
+        <parameter key="repository_entry" value="../../data_processed/trans_train_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Xtrans" width="90" x="713" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve district_processed" width="90" x="715" y="187">
+        <parameter key="repository_entry" value="../../data_processed/district_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="849" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="district_id" value="district_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="set_role" compatibility="9.0.003" expanded="true" height="82" name="Set Role" width="90" x="849" y="187">
+        <parameter key="attribute_name" value="disp_id"/>
+        <parameter key="target_role" value="regular"/>
+        <list key="set_additional_roles">
+          <parameter key="account_id" value="id"/>
+        </list>
+      </operator>
+      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="983" y="187">
+        <parameter key="repository_entry" value="../../data_processed/final_train_processed"/>
+      </operator>
+      <connect from_op="Retrieve disp_clean" from_port="output" to_op="dispXclient" to_port="left"/>
+      <connect from_op="Retrieve client_processed" from_port="output" to_op="dispXclient" to_port="right"/>
+      <connect from_op="dispXclient" from_port="join" to_op="Xaccount" to_port="left"/>
+      <connect from_op="Retrieve account_processed" from_port="output" to_op="Xaccount" to_port="right"/>
+      <connect from_op="Xaccount" from_port="join" to_op="Xcard" to_port="left"/>
+      <connect from_op="Retrieve card_train_processed" from_port="output" to_op="Xcard" to_port="right"/>
+      <connect from_op="Xcard" from_port="join" to_op="Xloan" to_port="left"/>
+      <connect from_op="Retrieve loan_train_processed" from_port="output" to_op="Xloan" to_port="right"/>
+      <connect from_op="Xloan" from_port="join" to_op="Xtrans" to_port="left"/>
+      <connect from_op="Retrieve trans_train_processed" from_port="output" to_op="Xtrans" to_port="right"/>
+      <connect from_op="Xtrans" from_port="join" to_op="Join" to_port="left"/>
+      <connect from_op="Retrieve district_processed" from_port="output" to_op="Join" to_port="right"/>
+      <connect from_op="Join" from_port="join" to_op="Set Role" to_port="example set input"/>
+      <connect from_op="Set Role" from_port="example set output" to_op="Store" to_port="input"/>
+      <connect from_op="Store" from_port="through" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <description align="center" color="yellow" colored="false" height="105" resized="false" width="180" x="199" y="373">Alterar o id da matrix para id account</description>
+    </process>
+  </operator>
+</process>
