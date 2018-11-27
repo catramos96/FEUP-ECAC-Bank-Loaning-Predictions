@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.0.003">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.0.003" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve client_processed" width="90" x="45" y="136">
+        <parameter key="repository_entry" value="../data_processed/client_processed"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve district_processed" width="90" x="45" y="238">
+        <parameter key="repository_entry" value="../data_processed/district_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="clientxdistrict" width="90" x="179" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="district_id" value="district_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve disp_processed" width="90" x="45" y="340">
+        <parameter key="repository_entry" value="../data_processed/disp_processed"/>
+      </operator>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="Filter Examples" width="90" x="179" y="340">
+        <parameter key="parameter_expression" value=""/>
+        <parameter key="condition_class" value="custom_filters"/>
+        <parameter key="invert_filter" value="false"/>
+        <list key="filters_list">
+          <parameter key="filters_entry_key" value="type_disp.equals.OWNER"/>
+        </list>
+        <parameter key="filters_logic_and" value="true"/>
+        <parameter key="filters_check_metadata" value="true"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xdisp" width="90" x="313" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="client_id" value="client_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve account_processed" width="90" x="313" y="238">
+        <parameter key="repository_entry" value="../data_processed/account_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xaccount" width="90" x="447" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve card_train_processed" width="90" x="447" y="238">
+        <parameter key="repository_entry" value="../data_processed/card_train_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xcard" width="90" x="581" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="disp_id" value="disp_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve loan_train_processed" width="90" x="581" y="238">
+        <parameter key="repository_entry" value="../data_processed/loan_train_processed"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xloan" width="90" x="715" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve trans_collapsed_table" width="90" x="715" y="238">
+        <parameter key="repository_entry" value="../data_processed/trans_collapsed_table"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xtrans" width="90" x="849" y="136">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <connect from_op="Retrieve client_processed" from_port="output" to_op="clientxdistrict" to_port="left"/>
+      <connect from_op="Retrieve district_processed" from_port="output" to_op="clientxdistrict" to_port="right"/>
+      <connect from_op="clientxdistrict" from_port="join" to_op="xdisp" to_port="left"/>
+      <connect from_op="Retrieve disp_processed" from_port="output" to_op="Filter Examples" to_port="example set input"/>
+      <connect from_op="Filter Examples" from_port="example set output" to_op="xdisp" to_port="right"/>
+      <connect from_op="xdisp" from_port="join" to_op="xaccount" to_port="left"/>
+      <connect from_op="Retrieve account_processed" from_port="output" to_op="xaccount" to_port="right"/>
+      <connect from_op="xaccount" from_port="join" to_op="xcard" to_port="left"/>
+      <connect from_op="Retrieve card_train_processed" from_port="output" to_op="xcard" to_port="right"/>
+      <connect from_op="xcard" from_port="join" to_op="xloan" to_port="left"/>
+      <connect from_op="Retrieve loan_train_processed" from_port="output" to_op="xloan" to_port="right"/>
+      <connect from_op="xloan" from_port="join" to_op="xtrans" to_port="left"/>
+      <connect from_op="Retrieve trans_collapsed_table" from_port="output" to_op="xtrans" to_port="right"/>
+      <connect from_op="xtrans" from_port="join" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>

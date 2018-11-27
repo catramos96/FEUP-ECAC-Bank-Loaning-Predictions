@@ -21,7 +21,7 @@
         </list>
         <parameter key="keep_all" value="true"/>
       </operator>
-      <operator activated="true" class="select_attributes" compatibility="9.0.003" expanded="true" height="82" name="Select Attributes" width="90" x="447" y="136">
+      <operator activated="true" class="select_attributes" compatibility="9.0.003" expanded="true" height="82" name="Select Attributes" width="90" x="380" y="136">
         <parameter key="attribute_filter_type" value="subset"/>
         <parameter key="attribute" value=""/>
         <parameter key="attributes" value="account_id|date_tmp|district_id|frequency"/>
@@ -35,12 +35,12 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="581" y="136">
+      <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="514" y="136">
         <parameter key="old_name" value="date_tmp"/>
-        <parameter key="new_name" value="date"/>
+        <parameter key="new_name" value="date_account"/>
         <list key="rename_additional_attributes"/>
       </operator>
-      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="715" y="136">
+      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="782" y="136">
         <parameter key="repository_entry" value="../../data_processed/account_processed"/>
       </operator>
       <connect from_op="Retrieve account_raw" from_port="output" to_op="Generate Attributes" to_port="example set input"/>
