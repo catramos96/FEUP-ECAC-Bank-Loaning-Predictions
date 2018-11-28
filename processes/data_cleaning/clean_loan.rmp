@@ -37,7 +37,7 @@
       </operator>
       <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename (2)" width="90" x="447" y="187">
         <parameter key="old_name" value="date_temp"/>
-        <parameter key="new_name" value="date"/>
+        <parameter key="new_name" value="date_loan"/>
         <list key="rename_additional_attributes">
           <parameter key="amount" value="amount_loan"/>
         </list>
@@ -75,7 +75,7 @@
       </operator>
       <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="447" y="85">
         <parameter key="old_name" value="date_temp"/>
-        <parameter key="new_name" value="date"/>
+        <parameter key="new_name" value="date_loan"/>
         <list key="rename_additional_attributes">
           <parameter key="amount" value="amount_loan"/>
         </list>

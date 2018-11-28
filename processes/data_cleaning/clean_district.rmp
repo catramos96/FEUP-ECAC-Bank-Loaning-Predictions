@@ -18,7 +18,9 @@
       <operator activated="true" class="rename" compatibility="9.0.003" expanded="true" height="82" name="Rename" width="90" x="179" y="187">
         <parameter key="old_name" value="code "/>
         <parameter key="new_name" value="district_id"/>
-        <list key="rename_additional_attributes"/>
+        <list key="rename_additional_attributes">
+          <parameter key="name " value="district_name"/>
+        </list>
       </operator>
       <operator activated="true" class="impute_missing_values" compatibility="9.0.003" expanded="true" height="68" name="Impute Missing Values" width="90" x="313" y="187">
         <parameter key="attribute_filter_type" value="subset"/>

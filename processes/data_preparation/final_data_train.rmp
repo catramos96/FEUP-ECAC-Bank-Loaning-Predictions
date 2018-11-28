@@ -97,7 +97,14 @@
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="1117" y="187">
+      <operator activated="true" class="generate_attributes" compatibility="9.0.003" expanded="true" height="82" name="Generate Attributes" width="90" x="1117" y="85">
+        <list key="function_descriptions">
+          <parameter key="mean_commit_crimes_rate" value="([no. of commited crimes '95 ] + [no. of commited crimes '96 ]) / 2"/>
+          <parameter key="mean_unemployment_rate" value="([unemploymant rate '95 ] + [unemploymant rate '96 ]) / 2"/>
+        </list>
+        <parameter key="keep_all" value="true"/>
+      </operator>
+      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="1318" y="85">
         <parameter key="repository_entry" value="../../data_processed/final_train_processed"/>
       </operator>
       <connect from_op="Retrieve client_processed" from_port="output" to_op="dispXclient" to_port="right"/>
@@ -113,7 +120,8 @@
       <connect from_op="Xcard" from_port="join" to_op="Xloan" to_port="left"/>
       <connect from_op="Xloan" from_port="join" to_op="Xtrans" to_port="left"/>
       <connect from_op="Xtrans" from_port="join" to_op="Join" to_port="left"/>
-      <connect from_op="Join" from_port="join" to_op="Store" to_port="input"/>
+      <connect from_op="Join" from_port="join" to_op="Generate Attributes" to_port="example set input"/>
+      <connect from_op="Generate Attributes" from_port="example set output" to_op="Store" to_port="input"/>
       <connect from_op="Store" from_port="through" to_port="result 1"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
