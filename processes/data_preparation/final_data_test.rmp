@@ -200,7 +200,7 @@
         <parameter key="include_special_attributes" value="false"/>
       </operator>
       <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="1318" y="34">
-        <parameter key="repository_entry" value="../../data_processed/final_train_processed"/>
+        <parameter key="repository_entry" value="../../data_processed/final_test_processed"/>
       </operator>
       <connect from_op="Retrieve disp_processed (2)" from_port="output" to_op="Filter Disponent" to_port="example set input"/>
       <connect from_op="Filter Disponent" from_port="example set output" to_op="xClient" to_port="left"/>
