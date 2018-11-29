@@ -44,7 +44,9 @@
         <parameter key="parameter_expression" value=""/>
         <parameter key="condition_class" value="custom_filters"/>
         <parameter key="invert_filter" value="false"/>
-        <list key="filters_list"/>
+        <list key="filters_list">
+          <parameter key="filters_entry_key" value="type_disp.equals.OWNER"/>
+        </list>
         <parameter key="filters_logic_and" value="true"/>
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
