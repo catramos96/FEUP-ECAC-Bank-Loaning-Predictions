@@ -91,7 +91,7 @@
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xCard (2)" width="90" x="581" y="289">
         <parameter key="remove_double_attributes" value="true"/>
-        <parameter key="join_type" value="inner"/>
+        <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
           <parameter key="disp_id" value="disp_id"/>
@@ -119,7 +119,7 @@
       </operator>
       <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="xCard" width="90" x="581" y="493">
         <parameter key="remove_double_attributes" value="true"/>
-        <parameter key="join_type" value="inner"/>
+        <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
           <parameter key="disp_id" value="disp_id"/>
