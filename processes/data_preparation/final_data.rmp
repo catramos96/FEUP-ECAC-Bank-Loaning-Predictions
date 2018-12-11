@@ -177,6 +177,8 @@
           <parameter key="age_loan_disponent" value="floor(date_diff(birth_date_disponent,date_loan)/(1000*60*60*24*365.25))"/>
           <parameter key="has_disponent" value="if(client_id_disponent == MISSING_NUMERIC, FALSE, TRUE)"/>
           <parameter key="percenta_loan_entry" value="(last_balance/amount_loan)*100"/>
+          <parameter key="percentage_payments_credit_withdrawal" value="(difference_credit_withdrawal/payments)*100"/>
+          <parameter key="estimate_balance_end_loan" value="last_balance+(difference_credit_withdrawal*duration)-amount_loan"/>
         </list>
         <parameter key="keep_all" value="true"/>
       </operator>

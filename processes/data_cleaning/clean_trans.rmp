@@ -492,6 +492,7 @@
       <portSpacing port="sink_result 2" spacing="0"/>
       <description align="center" color="yellow" colored="false" height="50" resized="true" width="91" x="45" y="226">Test</description>
       <description align="center" color="yellow" colored="false" height="50" resized="false" width="90" x="45" y="580">Train</description>
+      <description align="center" color="yellow" colored="false" height="104" resized="false" width="180" x="929" y="878">alterar para os primeiros 2 meses</description>
     </process>
   </operator>
 </process>
