@@ -128,8 +128,8 @@
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
       <operator activated="true" class="multiply" compatibility="9.0.003" expanded="true" height="145" name="Multiply" width="90" x="1050" y="646"/>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="24_36_months (2)" width="90" x="1184" y="1054">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,36,DATE_UNIT_MONTH))&amp;&amp; &#10;date_after(date_loan, date_add(date,24,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="2_3_months (2)" width="90" x="1184" y="1054">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),3,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
@@ -159,10 +159,10 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_24_36"/>
+        <parameter key="replace_by" value="_2_3"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="12_24_months (2)" width="90" x="1184" y="901">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,24,DATE_UNIT_MONTH))&amp;&amp; &#10;date_after(date_loan, date_add(date,12,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="1_2_months (2)" width="90" x="1184" y="901">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),2,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
@@ -193,17 +193,27 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_12_24"/>
+        <parameter key="replace_by" value="_1_2"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="0_12_months (2)" width="90" x="1184" y="748">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,12,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="0_1_months (2)" width="90" x="1184" y="748">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),1,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
         <parameter key="filters_logic_and" value="true"/>
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
-      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans (3)" width="90" x="1318" y="748">
+      <operator activated="true" class="multiply" compatibility="9.0.003" expanded="true" height="103" name="Multiply (3)" width="90" x="1318" y="748"/>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans_debts" width="90" x="1452" y="799">
+        <parameter key="process_location" value="pre_clean_trans_debts"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans (3)" width="90" x="1452" y="697">
         <parameter key="process_location" value="pre_clean_trans"/>
         <parameter key="use_input" value="true"/>
         <parameter key="store_output" value="false"/>
@@ -212,7 +222,7 @@
         <list key="macros"/>
         <parameter key="fail_for_unknown_macros" value="true"/>
       </operator>
-      <operator activated="true" class="rename_by_replacing" compatibility="9.0.003" expanded="true" height="82" name="Rename by Replacing" width="90" x="1452" y="748">
+      <operator activated="true" class="rename_by_replacing" compatibility="9.0.003" expanded="true" height="82" name="Rename by Replacing" width="90" x="1586" y="697">
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
         <parameter key="attributes" value=""/>
@@ -226,7 +236,16 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_0_12"/>
+        <parameter key="replace_by" value="_0_1"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (9)" width="90" x="1720" y="697">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id_0_1" value="account_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
       <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans (2)" width="90" x="1318" y="646">
         <parameter key="process_location" value="pre_clean_trans"/>
@@ -237,34 +256,52 @@
         <list key="macros"/>
         <parameter key="fail_for_unknown_macros" value="true"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="1586" y="646">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join" width="90" x="1854" y="646">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_0_12"/>
+          <parameter key="account_id" value="account_id_0_1"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (3)" width="90" x="1586" y="799">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (3)" width="90" x="1854" y="799">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_12_24"/>
+          <parameter key="account_id" value="account_id_1_2"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (4)" width="90" x="1586" y="952">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (4)" width="90" x="1854" y="952">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_24_36"/>
+          <parameter key="account_id" value="account_id_2_3"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store (2)" width="90" x="1921" y="238">
+      <operator activated="true" class="replace_missing_values" compatibility="9.0.003" expanded="true" height="103" name="Replace Missing Values (2)" width="90" x="2055" y="340">
+        <parameter key="return_preprocessing_model" value="false"/>
+        <parameter key="create_view" value="false"/>
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="|household_debt|insurance_debt|other_debts"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="default" value="zero"/>
+        <list key="columns"/>
+      </operator>
+      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store (2)" width="90" x="2189" y="340">
         <parameter key="repository_entry" value="../../data_processed/trans_train_processed"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="9.0.003" expanded="true" height="68" name="Retrieve loan_test_processed" width="90" x="514" y="34">
@@ -304,8 +341,8 @@
         <list key="macros"/>
         <parameter key="fail_for_unknown_macros" value="true"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="24_36_months" width="90" x="1184" y="544">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,36,DATE_UNIT_MONTH))&amp;&amp; &#10;date_after(date_loan, date_add(date,24,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="2_3_months" width="90" x="1184" y="544">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),3,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
@@ -335,10 +372,10 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_24_36"/>
+        <parameter key="replace_by" value="_2_3"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="12_24_months" width="90" x="1184" y="391">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,24,DATE_UNIT_MONTH)) &amp;&amp; &#10;date_after(date_loan, date_add(date,12,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="1_2_months" width="90" x="1184" y="391">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),2,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
@@ -369,17 +406,27 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_12_24"/>
+        <parameter key="replace_by" value="_1_2"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="0_12_months" width="90" x="1184" y="238">
-        <parameter key="parameter_expression" value="date_before(date_loan, date_add(date,12,DATE_UNIT_MONTH))"/>
+      <operator activated="true" class="filter_examples" compatibility="9.0.003" expanded="true" height="103" name="0_1_months" width="90" x="1184" y="238">
+        <parameter key="parameter_expression" value="date_diff(date_set(date_loan,1,DATE_UNIT_DAY), date_add(date_set(date,1,DATE_UNIT_DAY),1,DATE_UNIT_MONTH)) == 0"/>
         <parameter key="condition_class" value="expression"/>
         <parameter key="invert_filter" value="false"/>
         <list key="filters_list"/>
         <parameter key="filters_logic_and" value="true"/>
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
-      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans (8)" width="90" x="1318" y="238">
+      <operator activated="true" class="multiply" compatibility="9.0.003" expanded="true" height="103" name="Multiply (4)" width="90" x="1318" y="238"/>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans_debts (2)" width="90" x="1452" y="289">
+        <parameter key="process_location" value="pre_clean_trans_debts"/>
+        <parameter key="use_input" value="true"/>
+        <parameter key="store_output" value="false"/>
+        <parameter key="propagate_metadata_recursively" value="true"/>
+        <parameter key="cache_process" value="true"/>
+        <list key="macros"/>
+        <parameter key="fail_for_unknown_macros" value="true"/>
+      </operator>
+      <operator activated="true" class="productivity:execute_process" compatibility="9.0.003" expanded="true" height="68" name="Execute pre_clean_trans (8)" width="90" x="1452" y="187">
         <parameter key="process_location" value="pre_clean_trans"/>
         <parameter key="use_input" value="true"/>
         <parameter key="store_output" value="false"/>
@@ -388,7 +435,7 @@
         <list key="macros"/>
         <parameter key="fail_for_unknown_macros" value="true"/>
       </operator>
-      <operator activated="true" class="rename_by_replacing" compatibility="9.0.003" expanded="true" height="82" name="Rename by Replacing (6)" width="90" x="1452" y="238">
+      <operator activated="true" class="rename_by_replacing" compatibility="9.0.003" expanded="true" height="82" name="Rename by Replacing (6)" width="90" x="1586" y="187">
         <parameter key="attribute_filter_type" value="all"/>
         <parameter key="attribute" value=""/>
         <parameter key="attributes" value=""/>
@@ -402,36 +449,63 @@
         <parameter key="invert_selection" value="false"/>
         <parameter key="include_special_attributes" value="false"/>
         <parameter key="replace_what" value="$"/>
-        <parameter key="replace_by" value="_0_12"/>
+        <parameter key="replace_by" value="_0_1"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (6)" width="90" x="1586" y="136">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (10)" width="90" x="1720" y="187">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_0_12"/>
+          <parameter key="account_id_0_1" value="account_id"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (7)" width="90" x="1586" y="289">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (6)" width="90" x="1854" y="136">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_12_24"/>
+          <parameter key="account_id" value="account_id_0_1"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (8)" width="90" x="1586" y="442">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (7)" width="90" x="1854" y="289">
         <parameter key="remove_double_attributes" value="true"/>
         <parameter key="join_type" value="left"/>
         <parameter key="use_id_attribute_as_key" value="false"/>
         <list key="key_attributes">
-          <parameter key="account_id" value="account_id_24_36"/>
+          <parameter key="account_id" value="account_id_1_2"/>
         </list>
         <parameter key="keep_both_join_attributes" value="false"/>
       </operator>
-      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="1921" y="136">
+      <operator activated="true" class="concurrency:join" compatibility="9.0.003" expanded="true" height="82" name="Join (8)" width="90" x="1854" y="442">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="left"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="account_id" value="account_id_2_3"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="replace_missing_values" compatibility="9.0.003" expanded="true" height="103" name="Replace Missing Values" width="90" x="1988" y="136">
+        <parameter key="return_preprocessing_model" value="false"/>
+        <parameter key="create_view" value="false"/>
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="|household_debt|insurance_debt|other_debts"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="default" value="zero"/>
+        <list key="columns"/>
+      </operator>
+      <operator activated="true" class="store" compatibility="9.0.003" expanded="true" height="68" name="Store" width="90" x="2122" y="136">
         <parameter key="repository_entry" value="../../data_processed/trans_test_processed"/>
       </operator>
       <connect from_op="Retrieve trans_test_raw" from_port="output" to_op="Generate Attributes" to_port="example set input"/>
@@ -449,47 +523,59 @@
       <connect from_op="Join (2)" from_port="join" to_op="trans_before_loan" to_port="example set input"/>
       <connect from_op="trans_before_loan" from_port="example set output" to_op="Multiply" to_port="input"/>
       <connect from_op="Multiply" from_port="output 1" to_op="Execute pre_clean_trans (2)" to_port="input 1"/>
-      <connect from_op="Multiply" from_port="output 2" to_op="0_12_months (2)" to_port="example set input"/>
-      <connect from_op="Multiply" from_port="output 3" to_op="12_24_months (2)" to_port="example set input"/>
-      <connect from_op="Multiply" from_port="output 4" to_op="24_36_months (2)" to_port="example set input"/>
-      <connect from_op="24_36_months (2)" from_port="example set output" to_op="Execute pre_clean_trans (5)" to_port="input 1"/>
+      <connect from_op="Multiply" from_port="output 2" to_op="0_1_months (2)" to_port="example set input"/>
+      <connect from_op="Multiply" from_port="output 3" to_op="1_2_months (2)" to_port="example set input"/>
+      <connect from_op="Multiply" from_port="output 4" to_op="2_3_months (2)" to_port="example set input"/>
+      <connect from_op="2_3_months (2)" from_port="example set output" to_op="Execute pre_clean_trans (5)" to_port="input 1"/>
       <connect from_op="Execute pre_clean_trans (5)" from_port="result 1" to_op="Rename by Replacing (3)" to_port="example set input"/>
       <connect from_op="Rename by Replacing (3)" from_port="example set output" to_op="Join (4)" to_port="right"/>
-      <connect from_op="12_24_months (2)" from_port="example set output" to_op="Execute pre_clean_trans (4)" to_port="input 1"/>
+      <connect from_op="1_2_months (2)" from_port="example set output" to_op="Execute pre_clean_trans (4)" to_port="input 1"/>
       <connect from_op="Execute pre_clean_trans (4)" from_port="result 1" to_op="Rename by Replacing (2)" to_port="example set input"/>
       <connect from_op="Rename by Replacing (2)" from_port="example set output" to_op="Join (3)" to_port="right"/>
-      <connect from_op="0_12_months (2)" from_port="example set output" to_op="Execute pre_clean_trans (3)" to_port="input 1"/>
+      <connect from_op="0_1_months (2)" from_port="example set output" to_op="Multiply (3)" to_port="input"/>
+      <connect from_op="Multiply (3)" from_port="output 1" to_op="Execute pre_clean_trans (3)" to_port="input 1"/>
+      <connect from_op="Multiply (3)" from_port="output 2" to_op="Execute pre_clean_trans_debts" to_port="input 1"/>
+      <connect from_op="Execute pre_clean_trans_debts" from_port="result 1" to_op="Join (9)" to_port="right"/>
       <connect from_op="Execute pre_clean_trans (3)" from_port="result 1" to_op="Rename by Replacing" to_port="example set input"/>
-      <connect from_op="Rename by Replacing" from_port="example set output" to_op="Join" to_port="right"/>
+      <connect from_op="Rename by Replacing" from_port="example set output" to_op="Join (9)" to_port="left"/>
+      <connect from_op="Join (9)" from_port="join" to_op="Join" to_port="right"/>
       <connect from_op="Execute pre_clean_trans (2)" from_port="result 1" to_op="Join" to_port="left"/>
       <connect from_op="Join" from_port="join" to_op="Join (3)" to_port="left"/>
       <connect from_op="Join (3)" from_port="join" to_op="Join (4)" to_port="left"/>
-      <connect from_op="Join (4)" from_port="join" to_op="Store (2)" to_port="input"/>
-      <connect from_op="Store (2)" from_port="through" to_port="result 1"/>
+      <connect from_op="Join (4)" from_port="join" to_op="Replace Missing Values (2)" to_port="example set input"/>
+      <connect from_op="Replace Missing Values (2)" from_port="example set output" to_op="Store (2)" to_port="input"/>
+      <connect from_op="Store (2)" from_port="through" to_port="result 2"/>
       <connect from_op="Retrieve loan_test_processed" from_port="output" to_op="Set Role (2)" to_port="example set input"/>
       <connect from_op="Set Role (2)" from_port="example set output" to_op="Join (5)" to_port="right"/>
       <connect from_op="Join (5)" from_port="join" to_op="trans_before_loan (2)" to_port="example set input"/>
       <connect from_op="trans_before_loan (2)" from_port="example set output" to_op="Multiply (2)" to_port="input"/>
       <connect from_op="Multiply (2)" from_port="output 1" to_op="Execute pre_clean_trans" to_port="input 1"/>
-      <connect from_op="Multiply (2)" from_port="output 2" to_op="0_12_months" to_port="example set input"/>
-      <connect from_op="Multiply (2)" from_port="output 3" to_op="12_24_months" to_port="example set input"/>
-      <connect from_op="Multiply (2)" from_port="output 4" to_op="24_36_months" to_port="example set input"/>
+      <connect from_op="Multiply (2)" from_port="output 2" to_op="0_1_months" to_port="example set input"/>
+      <connect from_op="Multiply (2)" from_port="output 3" to_op="1_2_months" to_port="example set input"/>
+      <connect from_op="Multiply (2)" from_port="output 4" to_op="2_3_months" to_port="example set input"/>
       <connect from_op="Execute pre_clean_trans" from_port="result 1" to_op="Join (6)" to_port="left"/>
-      <connect from_op="24_36_months" from_port="example set output" to_op="Execute pre_clean_trans (6)" to_port="input 1"/>
+      <connect from_op="2_3_months" from_port="example set output" to_op="Execute pre_clean_trans (6)" to_port="input 1"/>
       <connect from_op="Execute pre_clean_trans (6)" from_port="result 1" to_op="Rename by Replacing (4)" to_port="example set input"/>
       <connect from_op="Rename by Replacing (4)" from_port="example set output" to_op="Join (8)" to_port="right"/>
-      <connect from_op="12_24_months" from_port="example set output" to_op="Execute pre_clean_trans (7)" to_port="input 1"/>
+      <connect from_op="1_2_months" from_port="example set output" to_op="Execute pre_clean_trans (7)" to_port="input 1"/>
       <connect from_op="Execute pre_clean_trans (7)" from_port="result 1" to_op="Rename by Replacing (5)" to_port="example set input"/>
       <connect from_op="Rename by Replacing (5)" from_port="example set output" to_op="Join (7)" to_port="right"/>
-      <connect from_op="0_12_months" from_port="example set output" to_op="Execute pre_clean_trans (8)" to_port="input 1"/>
+      <connect from_op="0_1_months" from_port="example set output" to_op="Multiply (4)" to_port="input"/>
+      <connect from_op="Multiply (4)" from_port="output 1" to_op="Execute pre_clean_trans (8)" to_port="input 1"/>
+      <connect from_op="Multiply (4)" from_port="output 2" to_op="Execute pre_clean_trans_debts (2)" to_port="input 1"/>
+      <connect from_op="Execute pre_clean_trans_debts (2)" from_port="result 1" to_op="Join (10)" to_port="right"/>
       <connect from_op="Execute pre_clean_trans (8)" from_port="result 1" to_op="Rename by Replacing (6)" to_port="example set input"/>
-      <connect from_op="Rename by Replacing (6)" from_port="example set output" to_op="Join (6)" to_port="right"/>
+      <connect from_op="Rename by Replacing (6)" from_port="example set output" to_op="Join (10)" to_port="left"/>
+      <connect from_op="Join (10)" from_port="join" to_op="Join (6)" to_port="right"/>
       <connect from_op="Join (6)" from_port="join" to_op="Join (7)" to_port="left"/>
       <connect from_op="Join (7)" from_port="join" to_op="Join (8)" to_port="left"/>
-      <connect from_op="Join (8)" from_port="join" to_op="Store" to_port="input"/>
+      <connect from_op="Join (8)" from_port="join" to_op="Replace Missing Values" to_port="example set input"/>
+      <connect from_op="Replace Missing Values" from_port="example set output" to_op="Store" to_port="input"/>
+      <connect from_op="Store" from_port="through" to_port="result 1"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
       <description align="center" color="yellow" colored="false" height="50" resized="true" width="91" x="45" y="226">Test</description>
       <description align="center" color="yellow" colored="false" height="50" resized="false" width="90" x="45" y="580">Train</description>
       <description align="center" color="yellow" colored="false" height="104" resized="false" width="180" x="929" y="878">alterar para os primeiros 2 meses</description>

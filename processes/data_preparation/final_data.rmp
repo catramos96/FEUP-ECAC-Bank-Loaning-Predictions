@@ -176,9 +176,15 @@
           <parameter key="age_loan_owner" value="floor(date_diff(birth_date_owner,date_loan)/(1000*60*60*24*365.25))"/>
           <parameter key="age_loan_disponent" value="floor(date_diff(birth_date_disponent,date_loan)/(1000*60*60*24*365.25))"/>
           <parameter key="has_disponent" value="if(client_id_disponent == MISSING_NUMERIC, FALSE, TRUE)"/>
-          <parameter key="percenta_loan_entry" value="(last_balance/amount_loan)*100"/>
+          <parameter key="percentage_loan_entry" value="(last_balance/amount_loan)*100"/>
           <parameter key="percentage_payments_credit_withdrawal" value="(difference_credit_withdrawal/payments)*100"/>
-          <parameter key="estimate_balance_end_loan" value="last_balance+(difference_credit_withdrawal*duration)-amount_loan"/>
+          <parameter key="total_debt_before_loan" value="household_debt+insurance_debt+other_debts"/>
+          <parameter key="total_debt_after_loan" value="household_debt+insurance_debt+other_debts+payments"/>
+          <parameter key="debts_to_income_ratio_before_loan" value="total_debt_before_loan/average_credit_per_month"/>
+          <parameter key="debts_to_income_ratio_after_loan" value="total_debt_after_loan/average_credit_per_month"/>
+          <parameter key="diff_credit_debts_before_loan" value="average_credit_per_month - total_debt_before_loan"/>
+          <parameter key="diff_credit_debts_after_loan" value="average_credit_per_month - total_debt_after_loan"/>
+          <parameter key="estimated_balance_end_loan" value="last_balance + diff_credit_debts_after_loan * duration"/>
         </list>
         <parameter key="keep_all" value="true"/>
       </operator>
