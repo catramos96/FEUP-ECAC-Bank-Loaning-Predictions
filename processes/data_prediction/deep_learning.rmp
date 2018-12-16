@@ -44,10 +44,10 @@
         <parameter key="sampling_type" value="stratified sampling"/>
         <parameter key="use_local_random_seed" value="true"/>
         <parameter key="local_random_seed" value="1992"/>
-        <parameter key="enable_parallel_execution" value="true"/>
+        <parameter key="enable_parallel_execution" value="false"/>
         <process expanded="true">
           <operator activated="true" class="h2o:deep_learning" compatibility="9.0.000" expanded="true" height="82" name="Deep Learning" width="90" x="179" y="34">
-            <parameter key="activation" value="Tanh"/>
+            <parameter key="activation" value="Rectifier"/>
             <enumeration key="hidden_layer_sizes">
               <parameter key="hidden_layer_sizes" value="50"/>
               <parameter key="hidden_layer_sizes" value="50"/>
@@ -56,7 +56,7 @@
             <parameter key="reproducible_(uses_1_thread)" value="false"/>
             <parameter key="use_local_random_seed" value="false"/>
             <parameter key="local_random_seed" value="1992"/>
-            <parameter key="epochs" value="100.0"/>
+            <parameter key="epochs" value="10.0"/>
             <parameter key="compute_variable_importances" value="true"/>
             <parameter key="train_samples_per_iteration" value="-2"/>
             <parameter key="adaptive_rate" value="true"/>
